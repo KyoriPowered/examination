@@ -1,0 +1,10 @@
+/.gradle/
+/.idea/
+/api/build/
+/api/out/
+/api/run/
+/run/
+/string/build/
+/string/out/
+/string/run/
+/*.iml
