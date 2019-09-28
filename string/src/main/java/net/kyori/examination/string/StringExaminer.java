@@ -23,15 +23,20 @@
  */
 package net.kyori.examination.string;
 
-import net.kyori.examination.Examinable;
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import net.kyori.examination.AbstractExaminer;
+import net.kyori.examination.Examinable;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class StringExaminer extends AbstractExaminer<String> {
   private static final Function<String, String> DEFAULT_ESCAPER = string -> string
@@ -46,8 +51,13 @@ public class StringExaminer extends AbstractExaminer<String> {
   private static final Collector<CharSequence, ?, String> COMMA_SQUARE = Collectors.joining(", ", "[", "]");
   private final Function<String, String> escaper;
 
-  public StringExaminer() {
-    this(DEFAULT_ESCAPER);
+  /**
+   * Gets a string examiner that escapes simply.
+   *
+   * @return a string examiner
+   */
+  public static @NonNull StringExaminer simpleEscaping() {
+    return Instances.SIMPLE_ESCAPING;
   }
 
   public StringExaminer(final @NonNull Function<String, String> escaper) {
@@ -81,16 +91,141 @@ public class StringExaminer extends AbstractExaminer<String> {
 
   @Override
   protected @NonNull String scalar(final @NonNull Object value) {
-    if(value instanceof Character) {
-      return '\'' + this.escaper.apply(String.valueOf(value)) + '\'';
-    } else if(value instanceof String) {
-      return '"' + this.escaper.apply((String) value) + '"';
-    }
     return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final boolean value) {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final boolean@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final byte value) {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final byte@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final char value) {
+    return '\'' + this.escaper.apply(String.valueOf(value)) + '\'';
+  }
+
+  @Override
+  public @NonNull String examine(final char@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final double value) {
+    return withSuffix(String.valueOf(value), 'd');
+  }
+
+  @Override
+  public @NonNull String examine(final double@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final float value) {
+    return withSuffix(String.valueOf(value), 'f');
+  }
+
+  @Override
+  public @NonNull String examine(final float@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final int value) {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final int@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final long value) {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final long@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull String examine(final short value) {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public @NonNull String examine(final short@Nullable[] values) {
+    if(values == null) return this.nil();
+    return array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   protected <T> @NonNull String stream(final @NonNull Stream<T> stream) {
     return stream.map(this::examine).collect(COMMA_SQUARE);
+  }
+
+  @Override
+  protected @NonNull String stream(final @NonNull DoubleStream stream) {
+    return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
+  }
+
+  @Override
+  protected @NonNull String stream(final @NonNull IntStream stream) {
+    return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
+  }
+
+  @Override
+  protected @NonNull String stream(final @NonNull LongStream stream) {
+    return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
+  }
+
+  @Override
+  public @NonNull String examine(final @Nullable String value) {
+    if(value == null) return this.nil();
+    return '"' + this.escaper.apply(value) + '"';
+  }
+
+  private static @NonNull String withSuffix(final String string, final char suffix) {
+    return string + suffix;
+  }
+
+  private static @NonNull String array(final int length, final IntFunction<String> value) {
+    final StringBuilder sb = new StringBuilder();
+    sb.append('[');
+    for(int i = 0; i < length; i++) {
+      sb.append(value.apply(i));
+      if(i + 1 < length) {
+        sb.append(", ");
+      }
+    }
+    sb.append(']');
+    return sb.toString();
+  }
+
+  private static final class Instances {
+    static final StringExaminer SIMPLE_ESCAPING = new StringExaminer(DEFAULT_ESCAPER);
   }
 }

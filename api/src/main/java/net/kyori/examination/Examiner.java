@@ -39,4 +39,140 @@ public interface Examiner<R> {
    * @return the result
    */
   @NonNull R examine(final @Nullable Object value);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final boolean value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final boolean@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final byte value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final byte@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final char value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final char@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final double value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final double@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final float value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final float@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final int value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final int@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final long value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final long@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final short value);
+
+  /**
+   * Examines.
+   *
+   * @param values the values to examine
+   * @return the result
+   */
+  @NonNull R examine(final short@Nullable[] values);
+
+  /**
+   * Examines.
+   *
+   * @param value the value to examine
+   * @return the result
+   */
+  @NonNull R examine(final @Nullable String value);
 }

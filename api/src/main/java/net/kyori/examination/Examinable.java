@@ -23,9 +23,8 @@
  */
 package net.kyori.examination;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 import java.util.stream.Stream;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Something that can be examined.
