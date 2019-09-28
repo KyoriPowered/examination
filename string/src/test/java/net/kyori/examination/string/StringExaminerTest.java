@@ -24,19 +24,21 @@
 package net.kyori.examination.string;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 import net.kyori.examination.Examinable;
 import net.kyori.examination.ExaminableProperty;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StringExaminerTest {
-  private final StringExaminer examiner = new StringExaminer();
+  private final StringExaminer examiner = StringExaminer.simpleEscaping();
 
   @Test
   void testArray_0() {
@@ -51,6 +53,7 @@ class StringExaminerTest {
   @Test
   void testArray_2() {
     assertEquals("[\"abc\", \"def\"]", this.examiner.examine(new String[]{"abc", "def"}));
+    assertEquals("[\"abc\", null]", this.examiner.examine(new String[]{"abc", null}));
   }
 
   @Test
@@ -61,6 +64,7 @@ class StringExaminerTest {
   @Test
   void testCollection_1() {
     assertEquals("[\"abc\"]", this.examiner.examine(Collections.singleton("abc")));
+    assertEquals("[null]", this.examiner.examine(Collections.singleton(null)));
   }
 
   @Test
@@ -96,31 +100,223 @@ class StringExaminerTest {
 
   @Test
   void testNil() {
-    assertEquals("null", this.examiner.examine(null));
+    assertEquals("null", this.examiner.examine((Object) null));
   }
 
   @Test
   void testScalar() {
-    assertEquals("'a'", this.examiner.examine('a'));
-    assertEquals("\"abc\"", this.examiner.examine("abc"));
-    assertEquals("1", this.examiner.examine(1));
-    assertEquals("1.23", this.examiner.examine(1.23d));
-    assertEquals("1.23", this.examiner.examine(1.23f));
+    final Object object = new Object();
+    assertEquals(object.toString(), this.examiner.examine(object));
+  }
+
+  @Test
+  void testScalar_redirect() {
+    assertEquals("true", this.examiner.examine((Boolean) true));
+    assertEquals("1", this.examiner.examine((Byte) (byte) 1));
+    assertEquals("'a'", this.examiner.examine((Character) 'a'));
+    assertEquals("1.2d", this.examiner.examine((Double) 1.2d));
+    assertEquals("1.2f", this.examiner.examine((Float) 1.2f));
+    assertEquals("1", this.examiner.examine((Integer) 1));
+    assertEquals("1", this.examiner.examine((Long) 1L));
+    assertEquals("1", this.examiner.examine((Short) (short) 1));
+
+    assertEquals("[true]", this.examiner.examine((Object) new boolean[]{true}));
+    assertEquals("[1]", this.examiner.examine((Object) new byte[]{(byte) 1}));
+    assertEquals("['a']", this.examiner.examine((Object) new char[]{'a'}));
+    assertEquals("[1.2d]", this.examiner.examine((Object) new double[]{1.2d}));
+    assertEquals("[1.2f]", this.examiner.examine((Object) new float[]{1.2f}));
+    assertEquals("[1]", this.examiner.examine((Object) new int[]{1}));
+    assertEquals("[1]", this.examiner.examine((Object) new long[]{1L}));
+    assertEquals("[1]", this.examiner.examine((Object) new short[]{(short) 1}));
   }
 
   @Test
   void testStream_0() {
     assertEquals("[]", this.examiner.examine(Stream.empty()));
+    assertEquals("[]", this.examiner.examine(DoubleStream.empty()));
+    assertEquals("[]", this.examiner.examine(IntStream.empty()));
+    assertEquals("[]", this.examiner.examine(LongStream.empty()));
   }
 
   @Test
   void testStream_1() {
     assertEquals("[\"abc\"]", this.examiner.examine(Stream.of("abc")));
+    assertEquals("[1.3d]", this.examiner.examine(DoubleStream.of(1.3d)));
+    assertEquals("[1]", this.examiner.examine(IntStream.of(1)));
+    assertEquals("[1]", this.examiner.examine(LongStream.of(1L)));
   }
 
   @Test
   void testStream_2() {
     assertEquals("[\"abc\", \"def\"]", this.examiner.examine(Stream.of("abc", "def")));
+    assertEquals("[1.3d, 2.4d]", this.examiner.examine(DoubleStream.of(1.3d, 2.4d)));
+    assertEquals("[1, 2]", this.examiner.examine(IntStream.of(1, 2)));
+    assertEquals("[1, 2]", this.examiner.examine(LongStream.of(1L, 2L)));
+  }
+
+  @Test
+  void testExamine_boolean() {
+    assertEquals("true", this.examiner.examine(true));
+  }
+
+  @Test
+  void testExamine_boolean_array_0() {
+    assertEquals("[]", this.examiner.examine(new boolean[]{}));
+  }
+
+  @Test
+  void testExamine_boolean_array_1() {
+    assertEquals("[true]", this.examiner.examine(new boolean[]{true}));
+  }
+
+  @Test
+  void testExamine_boolean_array_2() {
+    assertEquals("[true, false]", this.examiner.examine(new boolean[]{true, false}));
+  }
+
+  @Test
+  void testExamine_byte() {
+    assertEquals("123", this.examiner.examine((byte) 123));
+  }
+
+  @Test
+  void testExamine_byte_array_0() {
+    assertEquals("[]", this.examiner.examine(new byte[]{}));
+  }
+
+  @Test
+  void testExamine_byte_array_1() {
+    assertEquals("[3]", this.examiner.examine(new byte[]{(byte) 3}));
+  }
+
+  @Test
+  void testExamine_byte_array_2() {
+    assertEquals("[1, 2]", this.examiner.examine(new byte[]{1, 2}));
+  }
+
+  @Test
+  void testExamine_char() {
+    assertEquals("'k'", this.examiner.examine('k'));
+  }
+
+  @Test
+  void testExamine_char_array_0() {
+    assertEquals("[]", this.examiner.examine(new char[]{}));
+  }
+
+  @Test
+  void testExamine_char_array_1() {
+    assertEquals("['a']", this.examiner.examine(new char[]{'a'}));
+  }
+
+  @Test
+  void testExamine_char_array_2() {
+    assertEquals("['a', 'b']", this.examiner.examine(new char[]{'a', 'b'}));
+  }
+
+  @Test
+  void testExamine_double() {
+    assertEquals("0.4d", this.examiner.examine(0.4d));
+  }
+
+  @Test
+  void testExamine_double_array_0() {
+    assertEquals("[]", this.examiner.examine(new double[]{}));
+  }
+
+  @Test
+  void testExamine_double_array_1() {
+    assertEquals("[1.0d]", this.examiner.examine(new double[]{1d}));
+  }
+
+  @Test
+  void testExamine_double_array_2() {
+    assertEquals("[1.2d, 2.3d]", this.examiner.examine(new double[]{1.2d, 2.3d}));
+  }
+
+  @Test
+  void testExamine_float() {
+    assertEquals("0.4f", this.examiner.examine(0.4f));
+  }
+
+  @Test
+  void testExamine_float_array_0() {
+    assertEquals("[]", this.examiner.examine(new float[]{}));
+  }
+
+  @Test
+  void testExamine_float_array_1() {
+    assertEquals("[1.0f]", this.examiner.examine(new float[]{1f}));
+  }
+
+  @Test
+  void testExamine_float_array_2() {
+    assertEquals("[1.2f, 2.3f]", this.examiner.examine(new float[]{1.2f, 2.3f}));
+  }
+
+  @Test
+  void testExamine_int() {
+    assertEquals("3", this.examiner.examine(3));
+  }
+
+  @Test
+  void testExamine_int_array_0() {
+    assertEquals("[]", this.examiner.examine(new int[]{}));
+  }
+
+  @Test
+  void testExamine_int_array_1() {
+    assertEquals("[1]", this.examiner.examine(new int[]{1}));
+  }
+
+  @Test
+  void testExamine_int_array_2() {
+    assertEquals("[1, 2]", this.examiner.examine(new int[]{1, 2}));
+  }
+
+  @Test
+  void testExamine_long() {
+    assertEquals("3", this.examiner.examine(3L));
+  }
+
+  @Test
+  void testExamine_long_array_0() {
+    assertEquals("[]", this.examiner.examine(new long[]{}));
+  }
+
+  @Test
+  void testExamine_long_array_1() {
+    assertEquals("[1]", this.examiner.examine(new long[]{1L}));
+  }
+
+  @Test
+  void testExamine_long_array_2() {
+    assertEquals("[1, 2]", this.examiner.examine(new long[]{1L, 2L}));
+  }
+
+  @Test
+  void testExamine_short() {
+    assertEquals("3", this.examiner.examine((short) 3));
+  }
+
+  @Test
+  void testExamine_short_array_0() {
+    assertEquals("[]", this.examiner.examine(new short[]{}));
+  }
+
+  @Test
+  void testExamine_short_array_1() {
+    assertEquals("[1]", this.examiner.examine(new short[]{(short) 1}));
+  }
+
+  @Test
+  void testExamine_short_array_2() {
+    assertEquals("[1, 2]", this.examiner.examine(new short[]{(short) 1, (short) 2}));
+  }
+
+  @Test
+  void testString() {
+    assertEquals("\"abc\"", this.examiner.examine("abc"));
   }
 
   private static class ExaminableA implements Examinable {

@@ -21,44 +21,90 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.examination.string;
-
-import net.kyori.examination.Examinable;
-import net.kyori.examination.Examiner;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+package net.kyori.examination;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.BaseStream;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
-
-// TODO(kashike): promote to API
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * An abstract implementation of an examiner.
  *
  * @param <R> the result type
  */
-abstract class AbstractExaminer<R> implements Examiner<R> {
+public abstract class AbstractExaminer<R> implements Examiner<R> {
   @Override
   public @NonNull R examine(final @Nullable Object value) {
     if(value == null) {
       return this.nil();
-    } else if(value.getClass().isArray()) {
-      return this.array((Object[]) value);
-    } else if(value instanceof Collection<?>) {
-      return this.collection((Collection<?>) value);
+    } else if(value instanceof String) {
+      return this.examine((String) value);
     } else if(value instanceof Examinable) {
       return this.examinable((Examinable) value);
+    } else if(value instanceof Collection<?>) {
+      return this.collection((Collection<?>) value);
     } else if(value instanceof Map<?, ?>) {
       return this.map((Map<?, ?>) value);
-    } else if(value instanceof Stream<?>) {
-      return this.stream((Stream<?>) value);
-    } else {
-      return this.scalar(value);
+    } else if(value.getClass().isArray()) {
+      final Class<?> type = value.getClass().getComponentType();
+      if(type.isPrimitive()) {
+        if(type == boolean.class) {
+          return this.examine((boolean[]) value);
+        } else if(type == byte.class) {
+          return this.examine((byte[]) value);
+        } else if(type == char.class) {
+          return this.examine((char[]) value);
+        } else if(type == double.class) {
+          return this.examine((double[]) value);
+        } else if(type == float.class) {
+          return this.examine((float[]) value);
+        } else if(type == int.class) {
+          return this.examine((int[]) value);
+        } else if(type == long.class) {
+          return this.examine((long[]) value);
+        } else if(type == short.class) {
+          return this.examine((short[]) value);
+        }
+      }
+      return this.array((Object[]) value);
+    } else if(value instanceof Boolean) {
+      return this.examine(((Boolean) value).booleanValue());
+    } else if(value instanceof Character) {
+      return this.examine(((Character) value).charValue());
+    } else if(value instanceof Number) {
+      if(value instanceof Byte) {
+        return this.examine(((Byte) value).byteValue());
+      } else if(value instanceof Double) {
+        return this.examine(((Double) value).doubleValue());
+      } else if(value instanceof Float) {
+        return this.examine(((Float) value).floatValue());
+      } else if(value instanceof Integer) {
+        return this.examine(((Integer) value).intValue());
+      } else if(value instanceof Long) {
+        return this.examine(((Long) value).longValue());
+      } else if(value instanceof Short) {
+        return this.examine(((Short) value).shortValue());
+      }
+    } else if(value instanceof BaseStream<?, ?>) {
+      if(value instanceof Stream<?>) {
+        return this.stream((Stream<?>) value);
+      } else if(value instanceof DoubleStream) {
+        return this.stream((DoubleStream) value);
+      } else if(value instanceof IntStream) {
+        return this.stream((IntStream) value);
+      } else if(value instanceof LongStream) {
+        return this.stream((LongStream) value);
+      }
     }
+    return this.scalar(value);
   }
 
   /**
@@ -110,7 +156,7 @@ abstract class AbstractExaminer<R> implements Examiner<R> {
    * @return the result from examining an examinable
    */
   private @NonNull R examinable(final @NonNull Examinable examinable) {
-    return this.examinable(examinable, examinable.examinableProperties().map(property -> new AbstractMap.SimpleImmutableEntry<>(property.name(), this.examine(property.value()))));
+    return this.examinable(examinable, examinable.examinableProperties().map(property -> new AbstractMap.SimpleImmutableEntry<>(property.name(), property.examine(this))));
   }
 
   /**
@@ -168,4 +214,28 @@ abstract class AbstractExaminer<R> implements Examiner<R> {
    * @return the result from examining a stream
    */
   protected abstract <T> @NonNull R stream(final @NonNull Stream<T> stream);
+
+  /**
+   * Examines a stream.
+   *
+   * @param stream the stream
+   * @return the result from examining a stream
+   */
+  protected abstract @NonNull R stream(final @NonNull DoubleStream stream);
+
+  /**
+   * Examines a stream.
+   *
+   * @param stream the stream
+   * @return the result from examining a stream
+   */
+  protected abstract @NonNull R stream(final @NonNull IntStream stream);
+
+  /**
+   * Examines a stream.
+   *
+   * @param stream the stream
+   * @return the result from examining a stream
+   */
+  protected abstract @NonNull R stream(final @NonNull LongStream stream);
 }
