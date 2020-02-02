@@ -31,17 +31,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 public interface Examinable {
   /**
-   * Examines.
-   *
-   * @param examiner the examiner
-   * @param <R> the result type
-   * @return the examination result
-   */
-  default <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
-    return examiner.examine(this);
-  }
-
-  /**
    * Gets the examinable name.
    *
    * @return the examinable name
@@ -55,5 +44,20 @@ public interface Examinable {
    *
    * @return a stream of examinable properties
    */
-  @NonNull Stream<? extends ExaminableProperty> examinableProperties();
+  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
+    return Stream.empty();
+  }
+
+  /**
+   * Examines.
+   *
+   * <p>You should not override this method.</p>
+   *
+   * @param examiner the examiner
+   * @param <R> the result type
+   * @return the examination result
+   */
+  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
+    return examiner.examine(this);
+  }
 }
