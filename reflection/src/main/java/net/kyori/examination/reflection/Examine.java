@@ -21,49 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.examination;
+package net.kyori.examination.reflection;
 
-import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Something that can be examined.
+ * Marks a field which should be examined.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface Examinable extends ExaminablePropertySource {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Examine {
   /**
-   * Gets the examinable name.
+   * Gets the name.
    *
-   * @return the examinable name
-   * @since 1.0.0
+   * <p>The name of the field will be used if no value is provided.</p>
+   *
+   * @return the name
+   * @since 1.1.0
    */
-  default @NonNull String examinableName() {
-    return this.getClass().getSimpleName();
-  }
-
-  /**
-   * Gets a stream of examinable properties.
-   *
-   * @return a stream of examinable properties
-   * @since 1.0.0
-   */
-  @Override
-  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
-    return Stream.empty();
-  }
-
-  /**
-   * Examines.
-   *
-   * <p>You should not override this method.</p>
-   *
-   * @param examiner the examiner
-   * @param <R> the result type
-   * @return the examination result
-   * @since 1.0.0
-   */
-  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
-    return examiner.examine(this);
-  }
+  String name() default "";
 }

@@ -21,49 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.examination;
+package net.kyori.examination.reflection;
 
-import java.util.stream.Stream;
+import net.kyori.examination.ExaminableProperty;
+import net.kyori.examination.ExaminablePropertySource;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Something that can be examined.
+ * An examinable property source which provides {@link ExaminableProperty properties} by reflectively examining an object.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface Examinable extends ExaminablePropertySource {
+public interface ReflectiveExaminableProperties extends ExaminablePropertySource {
   /**
-   * Gets the examinable name.
+   * Creates an examinable property source from the fields in {@code object} annotated with {@link Examine}.
    *
-   * @return the examinable name
-   * @since 1.0.0
+   * @param object the object to be examined
+   * @return an examinable property source
+   * @since 1.1.0
    */
-  default @NonNull String examinableName() {
-    return this.getClass().getSimpleName();
-  }
-
-  /**
-   * Gets a stream of examinable properties.
-   *
-   * @return a stream of examinable properties
-   * @since 1.0.0
-   */
-  @Override
-  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
-    return Stream.empty();
-  }
-
-  /**
-   * Examines.
-   *
-   * <p>You should not override this method.</p>
-   *
-   * @param examiner the examiner
-   * @param <R> the result type
-   * @return the examination result
-   * @since 1.0.0
-   */
-  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
-    return examiner.examine(this);
+  static @NonNull ReflectiveExaminableProperties forFields(final @NonNull Object object) {
+    return ReflectiveExaminablePropertiesImpl.forFields(object);
   }
 }

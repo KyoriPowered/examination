@@ -1,0 +1,10 @@
+dependencies {
+  api project(':examination-api')
+  testImplementation(project(':examination-string'))
+}
+
+jar {
+  manifest.attributes(
+    'Automatic-Module-Name': 'net.kyori.examination.reflection'
+  )
+}
