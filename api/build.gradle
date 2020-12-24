@@ -1,9 +1,9 @@
 jar {
   manifest.attributes(
-    'Automatic-Module-Name': 'net.kyori.examination.api'
+    "Automatic-Module-Name": "net.kyori.examination.api"
   )
 }
 
 dependencies {
-  api 'org.checkerframework:checker-qual:2.8.2'
+  compileOnlyApi("org.checkerframework:checker-qual:3.8.0")
 }

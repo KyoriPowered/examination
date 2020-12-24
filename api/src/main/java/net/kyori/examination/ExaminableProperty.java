@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2019 KyoriPowered
+ * Copyright (c) 2018-2020 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * An examinable property.
+ *
+ * @since 1.0.0
  */
 public abstract class ExaminableProperty {
   private ExaminableProperty() {
@@ -37,16 +39,17 @@ public abstract class ExaminableProperty {
    * Gets the name.
    *
    * @return the name
+   * @since 1.0.0
    */
   public abstract @NonNull String name();
 
   /**
-   *
    * Gets the value.
    *
    * @param examiner the examiner
    * @param <R> the result type
    * @return the value
+   * @since 1.0.0
    */
   public abstract <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner);
 
@@ -61,6 +64,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final @Nullable Object value) {
@@ -83,6 +87,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final @Nullable String value) {
@@ -105,6 +110,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final boolean value) {
@@ -127,6 +133,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final boolean[] value) {
@@ -149,6 +156,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final byte value) {
@@ -171,6 +179,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final byte[] value) {
@@ -193,6 +202,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final char value) {
@@ -215,6 +225,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final char[] value) {
@@ -237,6 +248,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final double value) {
@@ -259,6 +271,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final double[] value) {
@@ -281,6 +294,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final float value) {
@@ -303,6 +317,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final float[] value) {
@@ -325,6 +340,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final int value) {
@@ -347,6 +363,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final int[] value) {
@@ -369,6 +386,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final long value) {
@@ -391,6 +409,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final long[] value) {
@@ -413,6 +432,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final short value) {
@@ -435,6 +455,7 @@ public abstract class ExaminableProperty {
    * @param name the name
    * @param value the value
    * @return the property
+   * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
   public static @NonNull ExaminableProperty of(final @NonNull String name, final short[] value) {

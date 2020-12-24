@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2019 KyoriPowered
+ * Copyright (c) 2018-2020 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,9 +35,15 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import net.kyori.examination.AbstractExaminer;
 import net.kyori.examination.Examinable;
+import net.kyori.examination.Examiner;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * {@link Examiner} that outputs a {@link String}.
+ *
+ * @since 1.0.0
+ */
 public class StringExaminer extends AbstractExaminer<String> {
   private static final Function<String, String> DEFAULT_ESCAPER = string -> string
     .replace("\"", "\\\"")
@@ -55,11 +61,18 @@ public class StringExaminer extends AbstractExaminer<String> {
    * Gets a string examiner that escapes simply.
    *
    * @return a string examiner
+   * @since 1.0.0
    */
   public static @NonNull StringExaminer simpleEscaping() {
     return Instances.SIMPLE_ESCAPING;
   }
 
+  /**
+   * Constructs.
+   *
+   * @param escaper the string escaper
+   * @since 1.0.0
+   */
   public StringExaminer(final @NonNull Function<String, String> escaper) {
     this.escaper = escaper;
   }

@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2019 KyoriPowered
+ * Copyright (c) 2018-2020 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An examiner.
  *
  * @param <R> the result type
+ * @since 1.0.0
  */
 public interface Examiner<R> {
   /**
@@ -37,6 +38,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final @Nullable Object value);
 
@@ -45,6 +47,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final boolean value);
 
@@ -53,6 +56,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final boolean@Nullable[] values);
 
@@ -61,6 +65,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final byte value);
 
@@ -69,6 +74,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final byte@Nullable[] values);
 
@@ -77,6 +83,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final char value);
 
@@ -85,6 +92,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final char@Nullable[] values);
 
@@ -93,6 +101,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final double value);
 
@@ -101,6 +110,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final double@Nullable[] values);
 
@@ -109,6 +119,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final float value);
 
@@ -117,6 +128,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final float@Nullable[] values);
 
@@ -125,6 +137,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final int value);
 
@@ -133,6 +146,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final int@Nullable[] values);
 
@@ -141,6 +155,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final long value);
 
@@ -149,6 +164,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final long@Nullable[] values);
 
@@ -157,6 +173,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final short value);
 
@@ -165,6 +182,7 @@ public interface Examiner<R> {
    *
    * @param values the values to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final short@Nullable[] values);
 
@@ -173,6 +191,7 @@ public interface Examiner<R> {
    *
    * @param value the value to examine
    * @return the result
+   * @since 1.0.0
    */
   @NonNull R examine(final @Nullable String value);
 }

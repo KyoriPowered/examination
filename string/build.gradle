@@ -1,9 +1,9 @@
 jar {
   manifest.attributes(
-    'Automatic-Module-Name': 'net.kyori.examination.string'
+    "Automatic-Module-Name": "net.kyori.examination.string"
   )
 }
 
 dependencies {
-  api project(':examination-api')
+  api(project(":examination-api"))
 }
