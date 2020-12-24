@@ -23,6 +23,7 @@
  */
 package net.kyori.examination;
 
+import java.util.stream.Stream;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -33,6 +34,27 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 1.0.0
  */
 public interface Examiner<R> {
+  /**
+   * Examines an examinable.
+   *
+   * @param examinable the examinable
+   * @return the result
+   * @since 1.1.0
+   */
+  default @NonNull R examine(final @NonNull Examinable examinable) {
+    return this.examine(examinable.examinableName(), examinable.examinableProperties());
+  }
+
+  /**
+   * Examines.
+   *
+   * @param name the examinable name
+   * @param properties the examinable properties
+   * @return the result
+   * @since 1.1.0
+   */
+  @NonNull R examine(final @NonNull String name, final @NonNull Stream<? extends ExaminableProperty> properties);
+
   /**
    * Examines.
    *

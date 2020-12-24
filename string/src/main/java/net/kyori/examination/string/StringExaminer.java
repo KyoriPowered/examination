@@ -34,7 +34,6 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import net.kyori.examination.AbstractExaminer;
-import net.kyori.examination.Examinable;
 import net.kyori.examination.Examiner;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -88,8 +87,8 @@ public class StringExaminer extends AbstractExaminer<String> {
   }
 
   @Override
-  protected @NonNull String examinable(final @NonNull Examinable examinable, final @NonNull Stream<Map.Entry<String, String>> properties) {
-    return examinable.examinableName() + properties.map(property -> property.getKey() + '=' + property.getValue()).collect(COMMA_CURLY);
+  protected @NonNull String examinable(final @NonNull String name, final @NonNull Stream<Map.Entry<String, String>> properties) {
+    return name + properties.map(property -> property.getKey() + '=' + property.getValue()).collect(COMMA_CURLY);
   }
 
   @Override
