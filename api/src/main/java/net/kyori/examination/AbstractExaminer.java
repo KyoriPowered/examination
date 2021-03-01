@@ -49,7 +49,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
     } else if(value instanceof String) {
       return this.examine((String) value);
     } else if(value instanceof Examinable) {
-      return this.examinable((Examinable) value);
+      return this.examine((Examinable) value);
     } else if(value instanceof Collection<?>) {
       return this.collection((Collection<?>) value);
     } else if(value instanceof Map<?, ?>) {
@@ -150,24 +150,19 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    */
   protected abstract <E> @NonNull R collection(final @NonNull Collection<E> collection, final @NonNull Stream<R> elements);
 
-  /**
-   * Examines an examinable.
-   *
-   * @param examinable the examinable
-   * @return the result from examining an examinable
-   */
-  private @NonNull R examinable(final @NonNull Examinable examinable) {
-    return this.examinable(examinable, examinable.examinableProperties().map(property -> new AbstractMap.SimpleImmutableEntry<>(property.name(), property.examine(this))));
+  @Override
+  public @NonNull R examine(final @NonNull String name, final @NonNull Stream<? extends ExaminableProperty> properties) {
+    return this.examinable(name, properties.map(property -> new AbstractMap.SimpleImmutableEntry<>(property.name(), property.examine(this))));
   }
 
   /**
    * Examines an examinable.
    *
-   * @param examinable the examinable
+   * @param name the examinable name
    * @param properties the examinable properties
    * @return the result from examining an examinable
    */
-  protected abstract @NonNull R examinable(final @NonNull Examinable examinable, final @NonNull Stream<Map.Entry<String, R>> properties);
+  protected abstract @NonNull R examinable(final @NonNull String name, final @NonNull Stream<Map.Entry<String, R>> properties);
 
   /**
    * Examines a map.
