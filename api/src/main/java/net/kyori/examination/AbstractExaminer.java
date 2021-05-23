@@ -27,6 +27,7 @@ import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.IntFunction;
 import java.util.stream.BaseStream;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -115,7 +116,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining an array
    */
-  private <E> @NonNull R array(final @NonNull E[] array) {
+  private <E> @NonNull R array(final E@NonNull[] array) {
     return this.array(array, Arrays.stream(array).map(this::examine));
   }
 
@@ -127,7 +128,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining an array
    */
-  protected abstract <E> @NonNull R array(final @NonNull E[] array, final @NonNull Stream<R> elements);
+  protected abstract <E> @NonNull R array(final E@NonNull[] array, final @NonNull Stream<R> elements);
 
   /**
    * Examines a collection.
@@ -234,4 +235,61 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @return the result from examining a stream
    */
   protected abstract @NonNull R stream(final @NonNull LongStream stream);
+
+  @Override
+  public @NonNull R examine(final boolean@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final byte@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final char@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final double@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final float@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final int@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final long@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  @Override
+  public @NonNull R examine(final short@Nullable[] values) {
+    if(values == null) return this.nil();
+    return this.array(values.length, index -> this.examine(values[index]));
+  }
+
+  /**
+   * Examines an array.
+   *
+   * @param length the length of the array
+   * @param value the index to examined value function
+   * @return the result from examining the array
+   */
+  protected abstract @NonNull R array(final int length, final IntFunction<R> value);
 }

@@ -77,7 +77,7 @@ public class StringExaminer extends AbstractExaminer<String> {
   }
 
   @Override
-  protected <E> @NonNull String array(final @NonNull E[] array, final @NonNull Stream<String> elements) {
+  protected <E> @NonNull String array(final E@NonNull[] array, final @NonNull Stream<String> elements) {
     return elements.collect(COMMA_SQUARE);
   }
 
@@ -112,53 +112,23 @@ public class StringExaminer extends AbstractExaminer<String> {
   }
 
   @Override
-  public @NonNull String examine(final boolean@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
-  }
-
-  @Override
   public @NonNull String examine(final byte value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final byte@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
-  }
-
-  @Override
   public @NonNull String examine(final char value) {
-    return '\'' + this.escaper.apply(String.valueOf(value)) + '\'';
-  }
-
-  @Override
-  public @NonNull String examine(final char@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
+    return Strings.wrapIn(this.escaper.apply(String.valueOf(value)), '\'');
   }
 
   @Override
   public @NonNull String examine(final double value) {
-    return withSuffix(String.valueOf(value), 'd');
-  }
-
-  @Override
-  public @NonNull String examine(final double@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
+    return Strings.withSuffix(String.valueOf(value), 'd');
   }
 
   @Override
   public @NonNull String examine(final float value) {
-    return withSuffix(String.valueOf(value), 'f');
-  }
-
-  @Override
-  public @NonNull String examine(final float@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
+    return Strings.withSuffix(String.valueOf(value), 'f');
   }
 
   @Override
@@ -167,31 +137,13 @@ public class StringExaminer extends AbstractExaminer<String> {
   }
 
   @Override
-  public @NonNull String examine(final int@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
-  }
-
-  @Override
   public @NonNull String examine(final long value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final long@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
-  }
-
-  @Override
   public @NonNull String examine(final short value) {
     return String.valueOf(value);
-  }
-
-  @Override
-  public @NonNull String examine(final short@Nullable[] values) {
-    if(values == null) return this.nil();
-    return array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
@@ -217,14 +169,11 @@ public class StringExaminer extends AbstractExaminer<String> {
   @Override
   public @NonNull String examine(final @Nullable String value) {
     if(value == null) return this.nil();
-    return '"' + this.escaper.apply(value) + '"';
+    return Strings.wrapIn(this.escaper.apply(value), '"');
   }
 
-  private static @NonNull String withSuffix(final String string, final char suffix) {
-    return string + suffix;
-  }
-
-  private static @NonNull String array(final int length, final IntFunction<String> value) {
+  @Override
+  protected @NonNull String array(final int length, final IntFunction<String> value) {
     final StringBuilder sb = new StringBuilder();
     sb.append('[');
     for(int i = 0; i < length; i++) {
