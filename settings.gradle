@@ -3,5 +3,8 @@ rootProject.name = 'examination'
 include 'api'
 findProject(':api')?.name = 'examination-api'
 
+include 'reflection'
+findProject(':reflection')?.name = 'examination-reflection'
+
 include 'string'
 findProject(':string')?.name = 'examination-string'

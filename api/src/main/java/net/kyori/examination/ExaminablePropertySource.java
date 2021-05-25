@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2021 KyoriPowered
+ * Copyright (c) 2018-2020 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,43 +27,16 @@ import java.util.stream.Stream;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Something that can be examined.
+ * A source of {@link ExaminableProperty properties}.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface Examinable extends ExaminablePropertySource {
-  /**
-   * Gets the examinable name.
-   *
-   * @return the examinable name
-   * @since 1.0.0
-   */
-  default @NonNull String examinableName() {
-    return this.getClass().getSimpleName();
-  }
-
+public interface ExaminablePropertySource {
   /**
    * Gets a stream of examinable properties.
    *
    * @return a stream of examinable properties
-   * @since 1.0.0
+   * @since 1.1.0
    */
-  @Override
-  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
-    return Stream.empty();
-  }
-
-  /**
-   * Examines.
-   *
-   * <p>You should not override this method.</p>
-   *
-   * @param examiner the examiner
-   * @param <R> the result type
-   * @return the examination result
-   * @since 1.0.0
-   */
-  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
-    return examiner.examine(this);
-  }
+  @NonNull Stream<? extends ExaminableProperty> examinableProperties();
 }

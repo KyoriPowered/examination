@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2021 KyoriPowered
+ * Copyright (c) 2018-2020 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,49 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.examination;
+package net.kyori.examination.reflection;
 
 import java.util.stream.Stream;
+import net.kyori.examination.Examinable;
+import net.kyori.examination.ExaminableProperty;
+import net.kyori.examination.string.StringExaminer;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.junit.jupiter.api.Test;
 
-/**
- * Something that can be examined.
- *
- * @since 1.0.0
- */
-public interface Examinable extends ExaminablePropertySource {
-  /**
-   * Gets the examinable name.
-   *
-   * @return the examinable name
-   * @since 1.0.0
-   */
-  default @NonNull String examinableName() {
-    return this.getClass().getSimpleName();
+class ReflectiveExaminablePropertiesSourceTest {
+  @Test
+  void test() {
+    final TestExaminable te = new TestExaminable("kashike", 0);
+    te.examinableProperties().forEach(ep -> {
+      System.out.println(ep.name() + ": " + ep.examine(StringExaminer.simpleEscaping()));
+    });
   }
 
-  /**
-   * Gets a stream of examinable properties.
-   *
-   * @return a stream of examinable properties
-   * @since 1.0.0
-   */
-  @Override
-  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
-    return Stream.empty();
-  }
+  static class TestExaminable implements Examinable {
+    private final ReflectiveExaminableProperties reps = ReflectiveExaminableProperties.forFields(this);
+    private final @Examine String name;
+    private final @Examine int age;
 
-  /**
-   * Examines.
-   *
-   * <p>You should not override this method.</p>
-   *
-   * @param examiner the examiner
-   * @param <R> the result type
-   * @return the examination result
-   * @since 1.0.0
-   */
-  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
-    return examiner.examine(this);
+    TestExaminable(final String name, final int age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    @Override
+    public @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
+      return this.reps.examinableProperties();
+    }
   }
 }
