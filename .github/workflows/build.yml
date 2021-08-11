@@ -20,7 +20,7 @@ jobs:
           java-version: "11"
       - name: "build"
         run: "./gradlew build"
-      - name: "Archive test results"
+      - name: "archive test results"
         if: "${{ always() }}"
         uses: "actions/upload-artifact@v2"
         with:
@@ -28,7 +28,7 @@ jobs:
           path: |
             build/reports/
             */build/reports/
-      - name: Determine status
+      - name: "determine status"
         if: "${{ runner.os == 'Linux' }}"
         run: |
           if [ "$(./gradlew properties | awk '/^version:/ { print $2; }' | grep '\-SNAPSHOT')" ]; then
