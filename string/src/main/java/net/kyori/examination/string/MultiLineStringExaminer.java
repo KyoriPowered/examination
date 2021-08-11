@@ -189,7 +189,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
   }
 
   private static Stream<String> enclose(final List<String> lines, final String open, final String close) {
-    if(lines.isEmpty()) {
+    if (lines.isEmpty()) {
       return Stream.of(open + close);
     }
     return Stream.of(
@@ -202,7 +202,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
   private static Stream<String> flatten(final String delimiter, final Stream<Stream<String>> bumpy) {
     final List<String> flat = new ArrayList<>();
     bumpy.forEachOrdered(lines -> {
-      if(!flat.isEmpty()) {
+      if (!flat.isEmpty()) {
         final int last = flat.size() - 1;
         flat.set(last, flat.get(last) + delimiter);
       }
@@ -230,7 +230,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
     final String middlePad = lefts < 2 ? "" : Strings.repeat(" ", middle.length());
 
     final List<String> result = new ArrayList<>(height);
-    for(int i = 0; i < height; i++) {
+    for (int i = 0; i < height; i++) {
       final String l = i < lefts ? Strings.padEnd(left.get(i), leftWidth, ' ') : leftPad;
       final String m = i == 0 ? middle : middlePad;
       final String r = i < rights ? right.get(i) : "";

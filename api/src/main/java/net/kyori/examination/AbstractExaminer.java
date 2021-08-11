@@ -45,64 +45,64 @@ import org.jetbrains.annotations.Nullable;
 public abstract class AbstractExaminer<R> implements Examiner<R> {
   @Override
   public @NotNull R examine(final @Nullable Object value) {
-    if(value == null) {
+    if (value == null) {
       return this.nil();
-    } else if(value instanceof String) {
+    } else if (value instanceof String) {
       return this.examine((String) value);
-    } else if(value instanceof Examinable) {
+    } else if (value instanceof Examinable) {
       return this.examine((Examinable) value);
-    } else if(value instanceof Collection<?>) {
+    } else if (value instanceof Collection<?>) {
       return this.collection((Collection<?>) value);
-    } else if(value instanceof Map<?, ?>) {
+    } else if (value instanceof Map<?, ?>) {
       return this.map((Map<?, ?>) value);
-    } else if(value.getClass().isArray()) {
+    } else if (value.getClass().isArray()) {
       final Class<?> type = value.getClass().getComponentType();
-      if(type.isPrimitive()) {
-        if(type == boolean.class) {
+      if (type.isPrimitive()) {
+        if (type == boolean.class) {
           return this.examine((boolean[]) value);
-        } else if(type == byte.class) {
+        } else if (type == byte.class) {
           return this.examine((byte[]) value);
-        } else if(type == char.class) {
+        } else if (type == char.class) {
           return this.examine((char[]) value);
-        } else if(type == double.class) {
+        } else if (type == double.class) {
           return this.examine((double[]) value);
-        } else if(type == float.class) {
+        } else if (type == float.class) {
           return this.examine((float[]) value);
-        } else if(type == int.class) {
+        } else if (type == int.class) {
           return this.examine((int[]) value);
-        } else if(type == long.class) {
+        } else if (type == long.class) {
           return this.examine((long[]) value);
-        } else if(type == short.class) {
+        } else if (type == short.class) {
           return this.examine((short[]) value);
         }
       }
       return this.array((Object[]) value);
-    } else if(value instanceof Boolean) {
+    } else if (value instanceof Boolean) {
       return this.examine(((Boolean) value).booleanValue());
-    } else if(value instanceof Character) {
+    } else if (value instanceof Character) {
       return this.examine(((Character) value).charValue());
-    } else if(value instanceof Number) {
-      if(value instanceof Byte) {
+    } else if (value instanceof Number) {
+      if (value instanceof Byte) {
         return this.examine(((Byte) value).byteValue());
-      } else if(value instanceof Double) {
+      } else if (value instanceof Double) {
         return this.examine(((Double) value).doubleValue());
-      } else if(value instanceof Float) {
+      } else if (value instanceof Float) {
         return this.examine(((Float) value).floatValue());
-      } else if(value instanceof Integer) {
+      } else if (value instanceof Integer) {
         return this.examine(((Integer) value).intValue());
-      } else if(value instanceof Long) {
+      } else if (value instanceof Long) {
         return this.examine(((Long) value).longValue());
-      } else if(value instanceof Short) {
+      } else if (value instanceof Short) {
         return this.examine(((Short) value).shortValue());
       }
-    } else if(value instanceof BaseStream<?, ?>) {
-      if(value instanceof Stream<?>) {
+    } else if (value instanceof BaseStream<?, ?>) {
+      if (value instanceof Stream<?>) {
         return this.stream((Stream<?>) value);
-      } else if(value instanceof DoubleStream) {
+      } else if (value instanceof DoubleStream) {
         return this.stream((DoubleStream) value);
-      } else if(value instanceof IntStream) {
+      } else if (value instanceof IntStream) {
         return this.stream((IntStream) value);
-      } else if(value instanceof LongStream) {
+      } else if (value instanceof LongStream) {
         return this.stream((LongStream) value);
       }
     }
@@ -238,49 +238,49 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
 
   @Override
   public @NotNull R examine(final boolean@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final byte@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final char@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final double@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final float@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final int@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final long@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
   public @NotNull R examine(final short@Nullable[] values) {
-    if(values == null) return this.nil();
+    if (values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 

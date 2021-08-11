@@ -21,43 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.examination.string;
-
-import java.util.stream.Stream;
-import org.jetbrains.annotations.NotNull;
-
-final class Strings {
-  private Strings() {
-  }
-
-  static @NotNull String withSuffix(final String string, final char suffix) {
-    return string + suffix;
-  }
-
-  static @NotNull String wrapIn(final String string, final char wrap) {
-    return wrap + string + wrap;
-  }
-
-  static int maxLength(final Stream<String> strings) {
-    return strings.mapToInt(String::length).max().orElse(0);
-  }
-
-  static @NotNull String repeat(final @NotNull String string, final int count) {
-    if (count == 0) {
-      return "";
-    } else if (count == 1) {
-      return string;
-    }
-    final StringBuilder sb = new StringBuilder(string.length() * count);
-    for (int i = 0; i < count; ++i) {
-      sb.append(string);
-    }
-    return sb.toString();
-  }
-
-  static @NotNull String padEnd(final @NotNull String string, final int minLength, final char padding) {
-    return string.length() >= minLength
-      ? string
-      : String.format("%-" + minLength + "s", padding);
-  }
-}
+/**
+ * A library for examining objects and producing the output.
+ *
+ * <p>Objects which which to expose properties using examination should implement
+ * {@link net.kyori.examination.Examinable}, and provide any {@code toString} elements
+ * as examinable properties. These objects should make sure to overide {@link java.lang.Object#toString()}
+ * in order to call to the examination methods.</p>
+ *
+ *
+ * <p>This API module does not itself contain any examiners that generate output. Those are provided by separate submodules.</p>
+ */
+package net.kyori.examination;

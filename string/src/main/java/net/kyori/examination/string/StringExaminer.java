@@ -168,7 +168,7 @@ public class StringExaminer extends AbstractExaminer<String> {
 
   @Override
   public @NotNull String examine(final @Nullable String value) {
-    if(value == null) return this.nil();
+    if (value == null) return this.nil();
     return Strings.wrapIn(this.escaper.apply(value), '"');
   }
 
@@ -176,9 +176,9 @@ public class StringExaminer extends AbstractExaminer<String> {
   protected @NotNull String array(final int length, final IntFunction<String> value) {
     final StringBuilder sb = new StringBuilder();
     sb.append('[');
-    for(int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++) {
       sb.append(value.apply(i));
-      if(i + 1 < length) {
+      if (i + 1 < length) {
         sb.append(", ");
       }
     }
