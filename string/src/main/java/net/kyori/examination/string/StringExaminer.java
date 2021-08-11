@@ -35,8 +35,8 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import net.kyori.examination.AbstractExaminer;
 import net.kyori.examination.Examiner;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * {@link Examiner} that outputs a {@link String}.
@@ -62,7 +62,7 @@ public class StringExaminer extends AbstractExaminer<String> {
    * @return a string examiner
    * @since 1.0.0
    */
-  public static @NonNull StringExaminer simpleEscaping() {
+  public static @NotNull StringExaminer simpleEscaping() {
     return Instances.SIMPLE_ESCAPING;
   }
 
@@ -72,108 +72,108 @@ public class StringExaminer extends AbstractExaminer<String> {
    * @param escaper the string escaper
    * @since 1.0.0
    */
-  public StringExaminer(final @NonNull Function<String, String> escaper) {
+  public StringExaminer(final @NotNull Function<String, String> escaper) {
     this.escaper = escaper;
   }
 
   @Override
-  protected <E> @NonNull String array(final E@NonNull[] array, final @NonNull Stream<String> elements) {
+  protected <E> @NotNull String array(final E@NotNull[] array, final @NotNull Stream<String> elements) {
     return elements.collect(COMMA_SQUARE);
   }
 
   @Override
-  protected <E> @NonNull String collection(final @NonNull Collection<E> collection, final @NonNull Stream<String> elements) {
+  protected <E> @NotNull String collection(final @NotNull Collection<E> collection, final @NotNull Stream<String> elements) {
     return elements.collect(COMMA_SQUARE);
   }
 
   @Override
-  protected @NonNull String examinable(final @NonNull String name, final @NonNull Stream<Map.Entry<String, String>> properties) {
+  protected @NotNull String examinable(final @NotNull String name, final @NotNull Stream<Map.Entry<String, String>> properties) {
     return name + properties.map(property -> property.getKey() + '=' + property.getValue()).collect(COMMA_CURLY);
   }
 
   @Override
-  protected <K, V> @NonNull String map(final @NonNull Map<K, V> map, final @NonNull Stream<Map.Entry<String, String>> entries) {
+  protected <K, V> @NotNull String map(final @NotNull Map<K, V> map, final @NotNull Stream<Map.Entry<String, String>> entries) {
     return entries.map(entry -> entry.getKey() + '=' + entry.getValue()).collect(COMMA_CURLY);
   }
 
   @Override
-  protected @NonNull String nil() {
+  protected @NotNull String nil() {
     return "null";
   }
 
   @Override
-  protected @NonNull String scalar(final @NonNull Object value) {
+  protected @NotNull String scalar(final @NotNull Object value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final boolean value) {
+  public @NotNull String examine(final boolean value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final byte value) {
+  public @NotNull String examine(final byte value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final char value) {
+  public @NotNull String examine(final char value) {
     return Strings.wrapIn(this.escaper.apply(String.valueOf(value)), '\'');
   }
 
   @Override
-  public @NonNull String examine(final double value) {
+  public @NotNull String examine(final double value) {
     return Strings.withSuffix(String.valueOf(value), 'd');
   }
 
   @Override
-  public @NonNull String examine(final float value) {
+  public @NotNull String examine(final float value) {
     return Strings.withSuffix(String.valueOf(value), 'f');
   }
 
   @Override
-  public @NonNull String examine(final int value) {
+  public @NotNull String examine(final int value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final long value) {
+  public @NotNull String examine(final long value) {
     return String.valueOf(value);
   }
 
   @Override
-  public @NonNull String examine(final short value) {
+  public @NotNull String examine(final short value) {
     return String.valueOf(value);
   }
 
   @Override
-  protected <T> @NonNull String stream(final @NonNull Stream<T> stream) {
+  protected <T> @NotNull String stream(final @NotNull Stream<T> stream) {
     return stream.map(this::examine).collect(COMMA_SQUARE);
   }
 
   @Override
-  protected @NonNull String stream(final @NonNull DoubleStream stream) {
+  protected @NotNull String stream(final @NotNull DoubleStream stream) {
     return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
   }
 
   @Override
-  protected @NonNull String stream(final @NonNull IntStream stream) {
+  protected @NotNull String stream(final @NotNull IntStream stream) {
     return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
   }
 
   @Override
-  protected @NonNull String stream(final @NonNull LongStream stream) {
+  protected @NotNull String stream(final @NotNull LongStream stream) {
     return stream.mapToObj(this::examine).collect(COMMA_SQUARE);
   }
 
   @Override
-  public @NonNull String examine(final @Nullable String value) {
+  public @NotNull String examine(final @Nullable String value) {
     if(value == null) return this.nil();
     return Strings.wrapIn(this.escaper.apply(value), '"');
   }
 
   @Override
-  protected @NonNull String array(final int length, final IntFunction<String> value) {
+  protected @NotNull String array(final int length, final IntFunction<String> value) {
     final StringBuilder sb = new StringBuilder();
     sb.append('[');
     for(int i = 0; i < length; i++) {

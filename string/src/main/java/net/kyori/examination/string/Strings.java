@@ -24,17 +24,17 @@
 package net.kyori.examination.string;
 
 import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 final class Strings {
   private Strings() {
   }
 
-  static @NonNull String withSuffix(final String string, final char suffix) {
+  static @NotNull String withSuffix(final String string, final char suffix) {
     return string + suffix;
   }
 
-  static @NonNull String wrapIn(final String string, final char wrap) {
+  static @NotNull String wrapIn(final String string, final char wrap) {
     return wrap + string + wrap;
   }
 
@@ -42,7 +42,7 @@ final class Strings {
     return strings.mapToInt(String::length).max().orElse(0);
   }
 
-  static @NonNull String repeat(final @NonNull String string, final int count) {
+  static @NotNull String repeat(final @NotNull String string, final int count) {
     if(count == 0) {
       return "";
     } else if(count == 1) {
@@ -55,7 +55,7 @@ final class Strings {
     return sb.toString();
   }
 
-  static @NonNull String padEnd(final @NonNull String string, final int minLength, final char padding) {
+  static @NotNull String padEnd(final @NotNull String string, final int minLength, final char padding) {
     return string.length() >= minLength
       ? string
       : String.format("%-" + minLength + "s", padding);

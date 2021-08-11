@@ -24,8 +24,8 @@
 package net.kyori.examination;
 
 import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An examiner.
@@ -41,7 +41,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.1.0
    */
-  default @NonNull R examine(final @NonNull Examinable examinable) {
+  default @NotNull R examine(final @NotNull Examinable examinable) {
     return this.examine(examinable.examinableName(), examinable.examinableProperties());
   }
 
@@ -53,7 +53,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.1.0
    */
-  @NonNull R examine(final @NonNull String name, final @NonNull Stream<? extends ExaminableProperty> properties);
+  @NotNull R examine(final @NotNull String name, final @NotNull Stream<? extends ExaminableProperty> properties);
 
   /**
    * Examines.
@@ -62,7 +62,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final @Nullable Object value);
+  @NotNull R examine(final @Nullable Object value);
 
   /**
    * Examines.
@@ -71,7 +71,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final boolean value);
+  @NotNull R examine(final boolean value);
 
   /**
    * Examines.
@@ -80,7 +80,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final boolean@Nullable[] values);
+  @NotNull R examine(final boolean@Nullable[] values);
 
   /**
    * Examines.
@@ -89,7 +89,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final byte value);
+  @NotNull R examine(final byte value);
 
   /**
    * Examines.
@@ -98,7 +98,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final byte@Nullable[] values);
+  @NotNull R examine(final byte@Nullable[] values);
 
   /**
    * Examines.
@@ -107,7 +107,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final char value);
+  @NotNull R examine(final char value);
 
   /**
    * Examines.
@@ -116,7 +116,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final char@Nullable[] values);
+  @NotNull R examine(final char@Nullable[] values);
 
   /**
    * Examines.
@@ -125,7 +125,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final double value);
+  @NotNull R examine(final double value);
 
   /**
    * Examines.
@@ -134,7 +134,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final double@Nullable[] values);
+  @NotNull R examine(final double@Nullable[] values);
 
   /**
    * Examines.
@@ -143,7 +143,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final float value);
+  @NotNull R examine(final float value);
 
   /**
    * Examines.
@@ -152,7 +152,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final float@Nullable[] values);
+  @NotNull R examine(final float@Nullable[] values);
 
   /**
    * Examines.
@@ -161,7 +161,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final int value);
+  @NotNull R examine(final int value);
 
   /**
    * Examines.
@@ -170,7 +170,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final int@Nullable[] values);
+  @NotNull R examine(final int@Nullable[] values);
 
   /**
    * Examines.
@@ -179,7 +179,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final long value);
+  @NotNull R examine(final long value);
 
   /**
    * Examines.
@@ -188,7 +188,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final long@Nullable[] values);
+  @NotNull R examine(final long@Nullable[] values);
 
   /**
    * Examines.
@@ -197,7 +197,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final short value);
+  @NotNull R examine(final short value);
 
   /**
    * Examines.
@@ -206,7 +206,7 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final short@Nullable[] values);
+  @NotNull R examine(final short@Nullable[] values);
 
   /**
    * Examines.
@@ -215,5 +215,5 @@ public interface Examiner<R> {
    * @return the result
    * @since 1.0.0
    */
-  @NonNull R examine(final @Nullable String value);
+  @NotNull R examine(final @Nullable String value);
 }

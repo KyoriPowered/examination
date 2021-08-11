@@ -23,8 +23,8 @@
  */
 package net.kyori.examination;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An examinable property.
@@ -41,7 +41,7 @@ public abstract class ExaminableProperty {
    * @return the name
    * @since 1.0.0
    */
-  public abstract @NonNull String name();
+  public abstract @NotNull String name();
 
   /**
    * Gets the value.
@@ -51,7 +51,7 @@ public abstract class ExaminableProperty {
    * @return the value
    * @since 1.0.0
    */
-  public abstract <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner);
+  public abstract <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner);
 
   @Override
   public String toString() {
@@ -67,15 +67,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final @Nullable Object value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final @Nullable Object value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -90,15 +90,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final @Nullable String value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final @Nullable String value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -113,15 +113,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final boolean value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final boolean value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -136,15 +136,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final boolean[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final boolean[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -159,15 +159,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final byte value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final byte value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -182,15 +182,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final byte[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final byte[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -205,15 +205,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final char value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final char value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -228,15 +228,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final char[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final char[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -251,15 +251,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final double value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final double value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -274,15 +274,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final double[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final double[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -297,15 +297,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final float value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final float value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -320,15 +320,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final float[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final float[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -343,15 +343,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final int value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final int value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -366,15 +366,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final int[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final int[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -389,15 +389,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final long value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final long value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -412,15 +412,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final long[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final long[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -435,15 +435,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final short value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final short value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };
@@ -458,15 +458,15 @@ public abstract class ExaminableProperty {
    * @since 1.0.0
    */
   @SuppressWarnings("DuplicatedCode")
-  public static @NonNull ExaminableProperty of(final @NonNull String name, final short[] value) {
+  public static @NotNull ExaminableProperty of(final @NotNull String name, final short[] value) {
     return new ExaminableProperty() {
       @Override
-      public @NonNull String name() {
+      public @NotNull String name() {
         return name;
       }
 
       @Override
-      public <R> @NonNull R examine(final @NonNull Examiner<? extends R> examiner) {
+      public <R> @NotNull R examine(final @NotNull Examiner<? extends R> examiner) {
         return examiner.examine(value);
       }
     };

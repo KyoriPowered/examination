@@ -33,8 +33,8 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An abstract implementation of an examiner.
@@ -44,7 +44,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  */
 public abstract class AbstractExaminer<R> implements Examiner<R> {
   @Override
-  public @NonNull R examine(final @Nullable Object value) {
+  public @NotNull R examine(final @Nullable Object value) {
     if(value == null) {
       return this.nil();
     } else if(value instanceof String) {
@@ -116,7 +116,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining an array
    */
-  private <E> @NonNull R array(final E@NonNull[] array) {
+  private <E> @NotNull R array(final E@NotNull[] array) {
     return this.array(array, Arrays.stream(array).map(this::examine));
   }
 
@@ -128,7 +128,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining an array
    */
-  protected abstract <E> @NonNull R array(final E@NonNull[] array, final @NonNull Stream<R> elements);
+  protected abstract <E> @NotNull R array(final E@NotNull[] array, final @NotNull Stream<R> elements);
 
   /**
    * Examines a collection.
@@ -137,7 +137,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining a collection
    */
-  private <E> @NonNull R collection(final @NonNull Collection<E> collection) {
+  private <E> @NotNull R collection(final @NotNull Collection<E> collection) {
     return this.collection(collection, collection.stream().map(this::examine));
   }
 
@@ -149,10 +149,10 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <E> the element type
    * @return the result from examining a collection
    */
-  protected abstract <E> @NonNull R collection(final @NonNull Collection<E> collection, final @NonNull Stream<R> elements);
+  protected abstract <E> @NotNull R collection(final @NotNull Collection<E> collection, final @NotNull Stream<R> elements);
 
   @Override
-  public @NonNull R examine(final @NonNull String name, final @NonNull Stream<? extends ExaminableProperty> properties) {
+  public @NotNull R examine(final @NotNull String name, final @NotNull Stream<? extends ExaminableProperty> properties) {
     return this.examinable(name, properties.map(property -> new AbstractMap.SimpleImmutableEntry<>(property.name(), property.examine(this))));
   }
 
@@ -163,7 +163,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param properties the examinable properties
    * @return the result from examining an examinable
    */
-  protected abstract @NonNull R examinable(final @NonNull String name, final @NonNull Stream<Map.Entry<String, R>> properties);
+  protected abstract @NotNull R examinable(final @NotNull String name, final @NotNull Stream<Map.Entry<String, R>> properties);
 
   /**
    * Examines a map.
@@ -173,7 +173,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <V> the value type
    * @return the result from examining a map
    */
-  private <K, V> @NonNull R map(final @NonNull Map<K, V> map) {
+  private <K, V> @NotNull R map(final @NotNull Map<K, V> map) {
     return this.map(map, map.entrySet().stream().map(entry -> new AbstractMap.SimpleImmutableEntry<>(this.examine(entry.getKey()), this.examine(entry.getValue()))));
   }
 
@@ -186,14 +186,14 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <V> the value type
    * @return the result from examining a map
    */
-  protected abstract <K, V> @NonNull R map(final @NonNull Map<K, V> map, final @NonNull Stream<Map.Entry<R, R>> entries);
+  protected abstract <K, V> @NotNull R map(final @NotNull Map<K, V> map, final @NotNull Stream<Map.Entry<R, R>> entries);
 
   /**
    * Examines {@code null}.
    *
    * @return the result from examining {@code null}
    */
-  protected abstract @NonNull R nil();
+  protected abstract @NotNull R nil();
 
   /**
    * Examines a scalar value.
@@ -201,7 +201,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param value the scalar value
    * @return the result from examining a scalar
    */
-  protected abstract @NonNull R scalar(final @NonNull Object value);
+  protected abstract @NotNull R scalar(final @NotNull Object value);
 
   /**
    * Examines a stream.
@@ -210,7 +210,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param <T> the type
    * @return the result from examining a stream
    */
-  protected abstract <T> @NonNull R stream(final @NonNull Stream<T> stream);
+  protected abstract <T> @NotNull R stream(final @NotNull Stream<T> stream);
 
   /**
    * Examines a stream.
@@ -218,7 +218,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param stream the stream
    * @return the result from examining a stream
    */
-  protected abstract @NonNull R stream(final @NonNull DoubleStream stream);
+  protected abstract @NotNull R stream(final @NotNull DoubleStream stream);
 
   /**
    * Examines a stream.
@@ -226,7 +226,7 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param stream the stream
    * @return the result from examining a stream
    */
-  protected abstract @NonNull R stream(final @NonNull IntStream stream);
+  protected abstract @NotNull R stream(final @NotNull IntStream stream);
 
   /**
    * Examines a stream.
@@ -234,52 +234,52 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param stream the stream
    * @return the result from examining a stream
    */
-  protected abstract @NonNull R stream(final @NonNull LongStream stream);
+  protected abstract @NotNull R stream(final @NotNull LongStream stream);
 
   @Override
-  public @NonNull R examine(final boolean@Nullable[] values) {
+  public @NotNull R examine(final boolean@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final byte@Nullable[] values) {
+  public @NotNull R examine(final byte@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final char@Nullable[] values) {
+  public @NotNull R examine(final char@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final double@Nullable[] values) {
+  public @NotNull R examine(final double@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final float@Nullable[] values) {
+  public @NotNull R examine(final float@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final int@Nullable[] values) {
+  public @NotNull R examine(final int@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final long@Nullable[] values) {
+  public @NotNull R examine(final long@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
 
   @Override
-  public @NonNull R examine(final short@Nullable[] values) {
+  public @NotNull R examine(final short@Nullable[] values) {
     if(values == null) return this.nil();
     return this.array(values.length, index -> this.examine(values[index]));
   }
@@ -291,5 +291,5 @@ public abstract class AbstractExaminer<R> implements Examiner<R> {
    * @param value the index to examined value function
    * @return the result from examining the array
    */
-  protected abstract @NonNull R array(final int length, final IntFunction<R> value);
+  protected abstract @NotNull R array(final int length, final IntFunction<R> value);
 }
