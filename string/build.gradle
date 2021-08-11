@@ -1,7 +1,10 @@
-jar {
-  manifest.attributes(
-    "Automatic-Module-Name": "net.kyori.examination.string"
-  )
+sourceSets {
+  main {
+    multirelease {
+      alternateVersions(9)
+      moduleName("net.kyori.examination.string")
+    }
+  }
 }
 
 dependencies {

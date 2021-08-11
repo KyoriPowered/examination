@@ -34,8 +34,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import net.kyori.examination.AbstractExaminer;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /*
  * Thanks goes to the people at @OvercastNetwork
@@ -56,7 +56,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
    * @return a string examiner
    * @since 1.2.0
    */
-  public static @NonNull MultiLineStringExaminer simpleEscaping() {
+  public static @NotNull MultiLineStringExaminer simpleEscaping() {
     return Instances.SIMPLE_ESCAPING;
   }
 
@@ -66,86 +66,86 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
    * @param examiner a single-line string examiner
    * @since 1.2.0
    */
-  public MultiLineStringExaminer(final @NonNull StringExaminer examiner) {
+  public MultiLineStringExaminer(final @NotNull StringExaminer examiner) {
     this.examiner = examiner;
   }
 
   @Override
-  protected <E> @NonNull Stream<String> array(final E@NonNull[] array, final @NonNull Stream<Stream<String>> elements) {
+  protected <E> @NotNull Stream<String> array(final E@NotNull[] array, final @NotNull Stream<Stream<String>> elements) {
     return this.arrayLike(elements);
   }
 
   @Override
-  protected <E> @NonNull Stream<String> collection(final @NonNull Collection<E> collection, final @NonNull Stream<Stream<String>> elements) {
+  protected <E> @NotNull Stream<String> collection(final @NotNull Collection<E> collection, final @NotNull Stream<Stream<String>> elements) {
     return this.arrayLike(elements);
   }
 
   @Override
-  protected @NonNull Stream<String> examinable(final @NonNull String name, final @NonNull Stream<Map.Entry<String, Stream<String>>> properties) {
+  protected @NotNull Stream<String> examinable(final @NotNull String name, final @NotNull Stream<Map.Entry<String, Stream<String>>> properties) {
     final Stream<String> flattened = flatten(",", properties.map(entry -> association(this.examine(entry.getKey()), " = ", entry.getValue())));
     final Stream<String> indented = indent(flattened);
     return enclose(indented, name + "{", "}");
   }
 
   @Override
-  protected <K, V> @NonNull Stream<String> map(final @NonNull Map<K, V> map, final @NonNull Stream<Map.Entry<Stream<String>, Stream<String>>> entries) {
+  protected <K, V> @NotNull Stream<String> map(final @NotNull Map<K, V> map, final @NotNull Stream<Map.Entry<Stream<String>, Stream<String>>> entries) {
     final Stream<String> flattened = flatten(",", entries.map(entry -> association(entry.getKey(), " = ", entry.getValue())));
     final Stream<String> indented = indent(flattened);
     return enclose(indented, "{", "}");
   }
 
   @Override
-  protected @NonNull Stream<String> nil() {
+  protected @NotNull Stream<String> nil() {
     return Stream.of(this.examiner.nil());
   }
 
   @Override
-  protected @NonNull Stream<String> scalar(final @NonNull Object value) {
+  protected @NotNull Stream<String> scalar(final @NotNull Object value) {
     return Stream.of(this.examiner.scalar(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final boolean value) {
+  public @NotNull Stream<String> examine(final boolean value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final byte value) {
+  public @NotNull Stream<String> examine(final byte value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final char value) {
+  public @NotNull Stream<String> examine(final char value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final double value) {
+  public @NotNull Stream<String> examine(final double value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final float value) {
+  public @NotNull Stream<String> examine(final float value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final int value) {
+  public @NotNull Stream<String> examine(final int value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final long value) {
+  public @NotNull Stream<String> examine(final long value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final short value) {
+  public @NotNull Stream<String> examine(final short value) {
     return Stream.of(this.examiner.examine(value));
   }
 
   @Override
-  protected @NonNull Stream<String> array(final int length, final IntFunction<Stream<String>> value) {
+  protected @NotNull Stream<String> array(final int length, final IntFunction<Stream<String>> value) {
     return this.arrayLike(
       length == 0
         ? Stream.empty()
@@ -154,27 +154,27 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
   }
 
   @Override
-  protected <T> @NonNull Stream<String> stream(final @NonNull Stream<T> stream) {
+  protected <T> @NotNull Stream<String> stream(final @NotNull Stream<T> stream) {
     return this.arrayLike(stream.map(this::examine));
   }
 
   @Override
-  protected @NonNull Stream<String> stream(final @NonNull DoubleStream stream) {
+  protected @NotNull Stream<String> stream(final @NotNull DoubleStream stream) {
     return this.arrayLike(stream.mapToObj(this::examine));
   }
 
   @Override
-  protected @NonNull Stream<String> stream(final @NonNull IntStream stream) {
+  protected @NotNull Stream<String> stream(final @NotNull IntStream stream) {
     return this.arrayLike(stream.mapToObj(this::examine));
   }
 
   @Override
-  protected @NonNull Stream<String> stream(final @NonNull LongStream stream) {
+  protected @NotNull Stream<String> stream(final @NotNull LongStream stream) {
     return this.arrayLike(stream.mapToObj(this::examine));
   }
 
   @Override
-  public @NonNull Stream<String> examine(final @Nullable String value) {
+  public @NotNull Stream<String> examine(final @Nullable String value) {
     return Stream.of(this.examiner.examine(value));
   }
 
@@ -189,7 +189,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
   }
 
   private static Stream<String> enclose(final List<String> lines, final String open, final String close) {
-    if(lines.isEmpty()) {
+    if (lines.isEmpty()) {
       return Stream.of(open + close);
     }
     return Stream.of(
@@ -202,7 +202,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
   private static Stream<String> flatten(final String delimiter, final Stream<Stream<String>> bumpy) {
     final List<String> flat = new ArrayList<>();
     bumpy.forEachOrdered(lines -> {
-      if(!flat.isEmpty()) {
+      if (!flat.isEmpty()) {
         final int last = flat.size() - 1;
         flat.set(last, flat.get(last) + delimiter);
       }
@@ -230,7 +230,7 @@ public class MultiLineStringExaminer extends AbstractExaminer<Stream<String>> {
     final String middlePad = lefts < 2 ? "" : Strings.repeat(" ", middle.length());
 
     final List<String> result = new ArrayList<>(height);
-    for(int i = 0; i < height; i++) {
+    for (int i = 0; i < height; i++) {
       final String l = i < lefts ? Strings.padEnd(left.get(i), leftWidth, ' ') : leftPad;
       final String m = i == 0 ? middle : middlePad;
       final String r = i < rights ? right.get(i) : "";

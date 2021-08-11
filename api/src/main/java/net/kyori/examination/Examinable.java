@@ -24,7 +24,7 @@
 package net.kyori.examination;
 
 import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Something that can be examined.
@@ -38,7 +38,7 @@ public interface Examinable {
    * @return the examinable name
    * @since 1.0.0
    */
-  default @NonNull String examinableName() {
+  default @NotNull String examinableName() {
     return this.getClass().getSimpleName();
   }
 
@@ -48,7 +48,7 @@ public interface Examinable {
    * @return a stream of examinable properties
    * @since 1.0.0
    */
-  default @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
+  default @NotNull Stream<? extends ExaminableProperty> examinableProperties() {
     return Stream.empty();
   }
 
@@ -62,7 +62,7 @@ public interface Examinable {
    * @return the examination result
    * @since 1.0.0
    */
-  default /* final */ <R> @NonNull R examine(final @NonNull Examiner<R> examiner) {
+  default /* final */ <R> @NotNull R examine(final @NotNull Examiner<R> examiner) {
     return examiner.examine(this);
   }
 }

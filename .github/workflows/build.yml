@@ -14,14 +14,31 @@ jobs:
       - name: "checkout repository"
         uses: "actions/checkout@v2"
       - name: "setup jdk 11"
-        uses: "actions/setup-java@v1"
+        uses: "actions/setup-java@v2"
         with:
+          distribution: "adopt"
           java-version: "11"
       - name: "build"
         run: "./gradlew build"
+      - name: "archive test results"
+        if: "${{ always() }}"
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "test-results"
+          path: |
+            build/reports/
+            */build/reports/
+      - name: "determine status"
+        if: "${{ runner.os == 'Linux' }}"
+        run: |
+          if [ "$(./gradlew properties | awk '/^version:/ { print $2; }' | grep '\-SNAPSHOT')" ]; then
+            echo "STATUS=snapshot" >> $GITHUB_ENV
+          else
+            echo "STATUS=release" >> $GITHUB_ENV
+          fi
       - name: "publish"
-        if: ${{ runner.os == 'Linux' && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        if: "${{ runner.os == 'Linux' && env.STATUS != 'release' && github.event_name == 'push' && github.ref == 'refs/heads/master' }}"
         run: "./gradlew publish"
         env:
-          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
+          ORG_GRADLE_PROJECT_sonatypeUsername: "${{ secrets.SONATYPE_USERNAME }}"
+          ORG_GRADLE_PROJECT_sonatypePassword: "${{ secrets.SONATYPE_PASSWORD }}"

@@ -1,9 +1,12 @@
-jar {
-  manifest.attributes(
-    "Automatic-Module-Name": "net.kyori.examination.api"
-  )
+sourceSets {
+  main {
+    multirelease {
+      alternateVersions(9)
+      moduleName("net.kyori.examination.api")
+    }
+  }
 }
 
 dependencies {
-  compileOnlyApi("org.checkerframework:checker-qual:3.10.0")
+  compileOnlyApi("org.jetbrains:annotations:21.0.1")
 }
