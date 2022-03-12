@@ -1,14 +1,8 @@
-buildscript {
-  ext {
-    indraVersion = "2.1.1"
-  }
-}
-
 plugins {
-  id "net.kyori.indra" version "$indraVersion" apply false
-  id "net.kyori.indra.checkstyle" version "$indraVersion" apply false
-  id "net.kyori.indra.license-header" version "$indraVersion" apply false
-  id "net.kyori.indra.publishing.sonatype" version "$indraVersion"
+  alias(libs.plugins.indra) apply false
+  alias(libs.plugins.indra.checkstyle) apply false
+  alias(libs.plugins.indra.licenseHeader) apply false
+  alias(libs.plugins.indra.sonatype)
 }
 
 group 'net.kyori'
@@ -27,8 +21,9 @@ subprojects {
 
   indra {
     javaVersions {
-      testWith(8, 11, 16)
+      testWith(8, 11, 17)
     }
+    checkstyle(libs.versions.checkstyle.get())
 
     github("KyoriPowered", "examination") {
       ci(true)
@@ -47,16 +42,13 @@ subprojects {
     }
   }
 
-  repositories {
-    mavenCentral()
-  }
-
   dependencies {
-    checkstyle("ca.stellardrift:stylecheck:0.1")
-    annotationProcessor("ca.stellardrift:contract-validator:1.0.1") // https://github.com/zml2008/contract-validator
-    testImplementation("com.google.truth:truth:1.1.3")
-    testImplementation("com.google.truth.extensions:truth-java8-extension:1.1.3")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    checkstyle(libs.stylecheck)
+    annotationProcessor(libs.contractValidator)
+    testImplementation(libs.truth)
+    testImplementation(libs.truth.java8)
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.api)
+    testImplementation(libs.junit.engine)
   }
 }

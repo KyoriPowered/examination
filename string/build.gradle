@@ -8,5 +8,5 @@ sourceSets {
 }
 
 dependencies {
-  api(project(":examination-api"))
+  api(projects.examinationApi)
 }

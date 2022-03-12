@@ -1,5 +1,14 @@
 rootProject.name = 'examination'
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+dependencyResolutionManagement {
+  repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+  repositories {
+    mavenCentral()
+  }
+}
+
 include 'api'
 findProject(':api')?.name = 'examination-api'
 
