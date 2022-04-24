@@ -2,7 +2,7 @@
 version = "1.0"
 
 [versions]
-checkstyle = "9.3"
+checkstyle = "10.2"
 indra = "2.1.1"
 junit = "5.8.2"
 truth = "1.1.3"
