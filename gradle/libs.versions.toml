@@ -20,7 +20,7 @@ truth-java8 = { module = "com.google.truth.extensions:truth-java8-extension", ve
 # Build process/APs
 # https://github.com/zml2008/contract-validator
 contractValidator = "ca.stellardrift:contract-validator:1.0.1"
-stylecheck = "ca.stellardrift:stylecheck:0.1"
+stylecheck = "ca.stellardrift:stylecheck:0.2.0"
 
 # unused, for renovate
 zCheckstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
