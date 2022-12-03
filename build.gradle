@@ -1,7 +1,7 @@
 plugins {
   alias(libs.plugins.indra) apply false
   alias(libs.plugins.indra.checkstyle) apply false
-  alias(libs.plugins.indra.licenseHeader) apply false
+  alias(libs.plugins.indra.licenser.spotless) apply false
   alias(libs.plugins.indra.sonatype)
 }
 
@@ -16,7 +16,7 @@ indraSonatype {
 subprojects {
   apply plugin: "net.kyori.indra"
   apply plugin: "net.kyori.indra.checkstyle"
-  apply plugin: "net.kyori.indra.license-header"
+  apply plugin: "net.kyori.indra.licenser.spotless"
   apply plugin: "net.kyori.indra.publishing"
 
   indra {
@@ -50,5 +50,16 @@ subprojects {
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.api)
     testImplementation(libs.junit.engine)
+  }
+
+  spotless {
+    ratchetFrom 'origin/main'
+
+    java {
+      endWithNewline()
+      indentWithSpaces 2
+      importOrderFile rootProject.file('.spotless/kyori.importorder')
+      trimTrailingWhitespace()
+    }
   }
 }
