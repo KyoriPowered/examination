@@ -1,3 +1,7 @@
+plugins {
+  id "org.gradle.toolchains.foojay-resolver-convention" version "0.2"
+}
+
 rootProject.name = 'examination'
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -9,8 +13,10 @@ dependencyResolutionManagement {
   }
 }
 
-include 'api'
-findProject(':api')?.name = 'examination-api'
-
-include 'string'
-findProject(':string')?.name = 'examination-string'
+[
+  'api',
+  'string'
+].each {
+  include it
+  findProject(":$it")?.name = "examination-$it"
+}
