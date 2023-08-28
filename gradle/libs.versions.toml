@@ -3,9 +3,9 @@ version = "1.0"
 
 [versions]
 checkstyle = "10.12.3"
-indra = "3.1.1"
+indra = "3.1.2"
 junit = "5.10.0"
-spotless = "6.19.0"
+spotless = "6.20.0"
 truth = "1.1.5"
 
 [libraries]
