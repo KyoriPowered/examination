@@ -1,7 +1,7 @@
 /*
  * This file is part of examination, licensed under the MIT License.
  *
- * Copyright (c) 2018-2021 KyoriPowered
+ * Copyright (c) 2018-2023 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -319,7 +319,7 @@ class StringExaminerTest {
     assertEquals("\"abc\"", this.examiner.examine("abc"));
   }
 
-  private static class ExaminableA implements Examinable {
+  private static final class ExaminableA implements Examinable {
     @Override
     public @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
       return Stream.of(
@@ -339,7 +339,7 @@ class StringExaminerTest {
     }
   }
 
-  private static class ExaminableC extends ExaminableB {
+  private static final class ExaminableC extends ExaminableB {
     @Override
     public @NonNull Stream<? extends ExaminableProperty> examinableProperties() {
       return Stream.concat(
