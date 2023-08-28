@@ -3,9 +3,9 @@ version = "1.0"
 
 [versions]
 checkstyle = "10.12.3"
-indra = "3.1.1"
+indra = "3.1.2"
 junit = "5.10.0"
-spotless = "6.19.0"
+spotless = "6.20.0"
 truth = "1.1.5"
 
 [libraries]
@@ -15,6 +15,7 @@ jetbrainsAnnotations = "org.jetbrains:annotations:24.0.1"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 truth-java8 = { module = "com.google.truth.extensions:truth-java8-extension", version.ref = "truth" }
 
@@ -31,4 +32,5 @@ indra = { id = "net.kyori.indra", version.ref = "indra" }
 indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
 indra-licenser-spotless = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
+nexusPublish = { id = "io.github.gradle-nexus.publish-plugin", version = "2.0.0-rc-1" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless"}
