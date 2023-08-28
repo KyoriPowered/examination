@@ -3,6 +3,7 @@ plugins {
   alias(libs.plugins.indra.checkstyle) apply false
   alias(libs.plugins.indra.licenser.spotless) apply false
   alias(libs.plugins.indra.sonatype)
+  alias(libs.plugins.nexusPublish)
 }
 
 group 'net.kyori'
@@ -50,6 +51,7 @@ subprojects {
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.api)
     testImplementation(libs.junit.engine)
+    testRuntimeOnly(libs.junit.launcher)
   }
 
   spotless {
