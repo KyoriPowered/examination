@@ -2,8 +2,9 @@
 /.idea/
 /buildSrc/.gradle/
 /buildSrc/build/
-/build/
-/out/
+/*/build/
+/*/out/
+/*/run/
 /build/
 /*.iml
 /*/.factorypath
