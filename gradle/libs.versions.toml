@@ -5,7 +5,7 @@ version = "1.0"
 checkstyle = "10.12.5"
 indra = "3.1.3"
 junit = "5.10.1"
-spotless = "6.22.0"
+spotless = "6.23.2"
 truth = "1.1.5"
 
 [libraries]
