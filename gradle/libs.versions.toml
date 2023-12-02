@@ -9,7 +9,7 @@ spotless = "6.22.0"
 truth = "1.1.5"
 
 [libraries]
-jetbrainsAnnotations = "org.jetbrains:annotations:24.0.1"
+jetbrainsAnnotations = "org.jetbrains:annotations:24.1.0"
 
 # tests
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
